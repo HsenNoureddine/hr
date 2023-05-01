@@ -2,6 +2,8 @@ package com.example.hr.controller;
 
 import com.example.hr.DBConnection;
 import com.example.hr.Session;
+import com.example.hr.model.EmployeeModel;
+import com.example.hr.model.TaskModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,7 +26,6 @@ public class CheckTasksController {
 
     private VBox container;
     private ArrayList<CheckBox> todo;
-    private ArrayList<String> tasks;
 
     @FXML
     public void initialize()
@@ -37,69 +38,66 @@ public class CheckTasksController {
         Session session = Session.getSession();
         DBConnection connectNow = new DBConnection();
         Connection connectDB = connectNow.getConnection();
-        String query = "Select * from task where userID="+session.getUserID();
         container = new VBox();
         container.getStyleClass().add("container");
-        try{
-            Statement s = connectDB.createStatement();
-            ResultSet resultSet = s.executeQuery(query);
-            todo = new ArrayList<>();
-            tasks = new ArrayList<>();
-            while(resultSet.next())
-            {
-                if (resultSet.getInt("status") == 1)continue;
+        todo = new ArrayList<>();
 
-                HBox hb = new HBox();
-                hb.getStyleClass().add("TaskBox");
-                Label task = new Label(resultSet.getString("task"));
-                CheckBox cb = new CheckBox();
-                cb.setId("status");
-                hb.getChildren().addAll(task,cb);
+        EmployeeModel e = new EmployeeModel(session.getUserID());
+        e.setInfo();
+        ArrayList<TaskModel> tasks = e.getTasks();
+        for(int i = 0; i < tasks.size();i++)
+        {
+            TaskModel t = tasks.get(i);
+            if (t.status == 1)continue;
 
-                task.setMinWidth(100);
-                HBox.setHgrow(task, Priority.ALWAYS);
+            HBox hb = new HBox();
+            hb.getStyleClass().add("TaskBox");
+            Label task = new Label(t.task);
+            CheckBox cb = new CheckBox();
+            cb.setId("status");
+            hb.getChildren().addAll(task,cb);
 
-                todo.add(cb);
-                tasks.add(resultSet.getString("task"));
+            task.setMinWidth(100);
+            HBox.setHgrow(task, Priority.ALWAYS);
 
-                container.getChildren().add(hb);
-            }
-            Button b = new Button();
-            b.setText("submit");
-            b.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    DBConnection connectNow = new DBConnection();
-                    Connection connectDB = connectNow.getConnection();
+            todo.add(cb);
 
-                    String deleteDone = "DELETE FROM `task` WHERE userID="+session.getUserID()+" and status=1";
-                    try{
-                        Statement s = connectDB.createStatement();
-                        s.executeUpdate(deleteDone);
-                    }
-                    catch (Exception e) {}
+            container.getChildren().add(hb);
+        }
+        Button b = new Button();
+        b.setText("submit");
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                DBConnection connectNow = new DBConnection();
+                Connection connectDB = connectNow.getConnection();
 
-                    for(int i = 0; i < tasks.size();i++)
-                    {
-                        if((todo.get(i)).isSelected())
-                        {
-                            String query = "Update task set status=1 where userID="+session.getUserID()+" and task='"+tasks.get(i)+"'";
-                            try{
-                                Statement s = connectDB.createStatement();
-                                s.executeUpdate(query);
-                            }
-                            catch (Exception e) {}
-                        }
-                    }
-                    vb.getChildren().clear();
-                    fill();
+                String deleteDone = "DELETE FROM `task` WHERE userID="+session.getUserID()+" and status=1";
+                try{
+                    Statement s = connectDB.createStatement();
+                    s.executeUpdate(deleteDone);
                 }
-            });
-            vb.getChildren().addAll(container,b);
-        }
-        catch (Exception e){
+                catch (Exception e) {}
 
-        }
+                for(int i = 0; i < tasks.size();i++)
+                {
+                    TaskModel t = tasks.get(i);
+                    if((todo.get(i)).isSelected())
+                    {
+                        String query = "Update task set status=1 where userID="+session.getUserID()+" and task='"+t.task+"'";
+                        try{
+                            Statement s = connectDB.createStatement();
+                            s.executeUpdate(query);
+                        }
+                        catch (Exception e) {}
+                    }
+                }
+                vb.getChildren().clear();
+                fill();
+            }
+        });
+        vb.getChildren().addAll(container,b);
+
 
     }
 

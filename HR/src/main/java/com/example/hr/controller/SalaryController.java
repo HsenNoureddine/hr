@@ -1,6 +1,9 @@
 package com.example.hr.controller;
 
 import com.example.hr.DBConnection;
+import com.example.hr.Session;
+import com.example.hr.model.AdminModel;
+import com.example.hr.model.EmployeeModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,58 +39,59 @@ public class SalaryController {
     {
         DBConnection connectNow = new DBConnection();
         Connection connectDB = connectNow.getConnection();
-        String query = "Select * from user where status=1";
+
         container = new VBox();
         sp = new ScrollPane();
         container.getStyleClass().add("container");
-        try{
-            Statement s = connectDB.createStatement();
-            ResultSet resultSet = s.executeQuery(query);
-            while(resultSet.next())
-            {
-                users.add(resultSet.getInt("userID"));
+        Session s = Session.getSession();
+        AdminModel a = new AdminModel(s.getUserID());
+        a.getAllEmployees();
+        ArrayList<EmployeeModel> employees = a.getEmployees();
+        for(int i = 0; i < employees.size();i++)
+        {
 
+            EmployeeModel e = employees.get(i);
+            if(e.getStatus() == 0)continue;
+            users.add(e.getUserID());
 
-                HBox hb = new HBox();
-                Label lb = new Label(resultSet.getString("userName")+" :");
-                TextField salary =  new TextField(resultSet.getFloat("salary")+"");
+            HBox hb = new HBox();
+            Label lb = new Label(e.getUserName()+" :");
+            TextField salary =  new TextField(e.getSalary()+"");
 
-                salaries.add(salary);
+            salaries.add(salary);
 
-                salary.setMinWidth(50);
-                lb.setMinWidth(50);
+            salary.setMinWidth(50);
+            lb.setMinWidth(50);
 
-                HBox.setHgrow(salary, Priority.ALWAYS);
-                HBox.setHgrow(lb, Priority.ALWAYS);
+            HBox.setHgrow(salary, Priority.ALWAYS);
+            HBox.setHgrow(lb, Priority.ALWAYS);
 
-                hb.getStyleClass().add("SalaryBox");
+            hb.getStyleClass().add("SalaryBox");
 
-                hb.getChildren().addAll(lb,salary);
-                container.getChildren().add(hb);
-            }
-            Button b = new Button();
-            b.setText("Update");
-            b.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-
-                    for(int i = 0 ; i< users.size();i++)
-                    {
-                        float slry = Float.parseFloat((salaries.get(i)).getText());
-                        String updateSalary = "Update user Set salary="+slry+" where userID="+users.get(i)+"";
-                        try{
-                            Statement s = connectDB.createStatement();
-                            s.executeUpdate(updateSalary);
-                        }
-                        catch (Exception e){}
-                    }
-                }
-            });
-            sp.setContent(container);
-            vb.getChildren().add(sp);
-            vb.getChildren().add(b);
+            hb.getChildren().addAll(lb,salary);
+            container.getChildren().add(hb);
         }
-        catch(Exception e){}
+        Button b = new Button();
+        b.setText("Update");
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                for(int i = 0 ; i< users.size();i++)
+                {
+                    float slry = Float.parseFloat((salaries.get(i)).getText());
+                    String updateSalary = "Update user Set salary="+slry+" where userID="+users.get(i)+"";
+                    try{
+                        Statement s = connectDB.createStatement();
+                        s.executeUpdate(updateSalary);
+                    }
+                    catch (Exception e){}
+                }
+            }
+        });
+        sp.setContent(container);
+        vb.getChildren().add(sp);
+        vb.getChildren().add(b);
     }
 
 }

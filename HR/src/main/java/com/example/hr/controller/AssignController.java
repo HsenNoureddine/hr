@@ -1,11 +1,13 @@
 package com.example.hr.controller;
 
 import com.example.hr.DBConnection;
+import com.example.hr.Session;
+import com.example.hr.model.AdminModel;
+import com.example.hr.model.EmployeeModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -13,7 +15,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -40,19 +41,21 @@ public class AssignController {
 
         DBConnection connectNow = new DBConnection();
         Connection connectDB = connectNow.getConnection();
-        String query = "Select * from user where status=1";
-        try{
-            Statement s = connectDB.createStatement();
-            ResultSet resultSet = s.executeQuery(query);
 
-            container.getStyleClass().add("container");
-            while(resultSet.next())
-            {
-                employeeIDs.add(resultSet.getInt("userID"));
-                employees.add(resultSet.getString("userName"));
-            }
+        ArrayList<EmployeeModel> eList = new ArrayList<>();
+        Session s = Session.getSession();
+        AdminModel a = new AdminModel(s.getUserID());
+        a.getAllEmployees();
+        eList = a.getEmployees();
+
+        for(int i = 0; i < eList.size();i++)
+        {
+            EmployeeModel employee = eList.get(i);
+            if(employee.getStatus() == 0) continue;
+            employeeIDs.add(employee.getUserID());
+            employees.add(employee.getUserName());
         }
-        catch (Exception e){}
+        container.getStyleClass().add("container");
 
         ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(employees));
 

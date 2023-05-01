@@ -1,0 +1,9 @@
+VBox{
+    -fx-spacing: 10;
+}
+.container{
+    -fx-spacing: 5;
+    -fx-min-height: 300;
+    -fx-max-height: 1500;
+    -fx-max-width: 500;
+}

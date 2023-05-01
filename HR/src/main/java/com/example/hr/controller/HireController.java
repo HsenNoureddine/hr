@@ -2,6 +2,9 @@ package com.example.hr.controller;
 
 
 import com.example.hr.DBConnection;
+import com.example.hr.Session;
+import com.example.hr.model.AdminModel;
+import com.example.hr.model.EmployeeModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -72,21 +75,24 @@ public class HireController {
     {
         DBConnection connectNow = new DBConnection();
         Connection connectDB = connectNow.getConnection();
-        String query = "Select * from user where status=0";
-        try {
-            Statement s = connectDB.createStatement();
-            ResultSet resultSet = s.executeQuery(query);
-            container.getStyleClass().add("container");
-            while (resultSet.next()) {
-                if (resultSet.getInt("status") != 0) continue;
 
-                users.add(resultSet.getInt("userID"));
+        Session s = Session.getSession();
+        AdminModel a = new AdminModel(s.getUserID());
+        a.getAllEmployees();
+        ArrayList<EmployeeModel> employees = a.getEmployees();
+        try {
+            container.getStyleClass().add("container");
+            for(int i = 0; i < employees.size();i++) {
+                EmployeeModel e = employees.get(i);
+                if (e.getStatus() != 0) continue;
+
+                users.add(e.getUserID());
 
                 HBox hb = new HBox();
                 Label un = new Label("username: ");
                 un.setMinWidth(50);
 
-                Label userName = new Label(resultSet.getString("userName"));
+                Label userName = new Label(e.getUserName());
                 userName.setMinWidth(50);
 
                 CheckBox cb = new CheckBox();
