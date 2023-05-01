@@ -1,7 +1,3 @@
-.HireHBox{
-    -fx-alignment: center;
-    -fx-spacing: 10;
-}
 VBox{
     -fx-spacing: 10;
 }

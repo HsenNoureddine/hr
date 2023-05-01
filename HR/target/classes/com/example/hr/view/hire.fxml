@@ -6,7 +6,7 @@
 
 <VBox fx:id="vb" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hr.controller.HireController" stylesheets="@style/hire.css">
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="People to hire:">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="People to hire">
          <font>
             <Font size="22.0" />
          </font>

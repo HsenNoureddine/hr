@@ -11,32 +11,32 @@
    <left>
       <VBox prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE;" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#hire" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Hire">
+            <Button fx:id="Hire" mnemonicParsing="false" onAction="#hire" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Hire">
                <opaqueInsets>
                   <Insets bottom="10.0" />
                </opaqueInsets>
             </Button>
-            <Button mnemonicParsing="false" onAction="#salary" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Salary">
+            <Button fx:id="Salary" mnemonicParsing="false" onAction="#salary" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Salary">
                <opaqueInsets>
                   <Insets bottom="10.0" />
                </opaqueInsets>
             </Button>
-            <Button mnemonicParsing="false" onAction="#assign" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Assign">
+            <Button fx:id="Assign" mnemonicParsing="false" onAction="#assign" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Assign">
                <opaqueInsets>
                   <Insets bottom="10.0" />
                </opaqueInsets>
             </Button>
-            <Button mnemonicParsing="false" onAction="#costs" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Costs">
+            <Button fx:id="Costs" mnemonicParsing="false" onAction="#costs" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Costs">
                <opaqueInsets>
                   <Insets bottom="10.0" />
                </opaqueInsets>
             </Button>
-            <Button mnemonicParsing="false" onAction="#checkTasks" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Check Tasks">
+            <Button fx:id="Check" mnemonicParsing="false" onAction="#checkTasks" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Check Tasks">
                <opaqueInsets>
                   <Insets bottom="10.0" />
                </opaqueInsets>
             </Button>
-            <Button mnemonicParsing="false" onAction="#logout" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
+            <Button fx:id="Logout" mnemonicParsing="false" onAction="#logout" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
                <opaqueInsets>
                   <Insets bottom="10.0" />
                </opaqueInsets>

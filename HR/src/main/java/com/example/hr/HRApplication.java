@@ -14,6 +14,7 @@ public class HRApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Login Form");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

@@ -1,10 +1,11 @@
-.HireHBox{
-    -fx-alignment: center;
-    -fx-spacing: 10;
-}
 VBox{
     -fx-spacing: 10;
 }
+.TaskBox{
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+
 .container{
     -fx-spacing: 5;
     -fx-min-height: 300;

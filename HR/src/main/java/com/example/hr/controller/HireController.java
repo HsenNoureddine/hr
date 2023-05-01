@@ -35,7 +35,6 @@ public class HireController {
 
     @FXML
     public void initialize(){
-        System.out.println("hire");
         VBox container = new VBox();
         Connection connectDB = fill(container);
         vb.getChildren().add(container);
@@ -62,14 +61,9 @@ public class HireController {
                     }
                     i++;
                 }
+                container.getChildren().clear();
+                fill(container);
 
-//                users.removeAll(users);
-//                vb.getChildren().remove(b);
-//                vb.getChildren().remove(container);
-//                fill(container);
-//                vb.getChildren().add(container);
-//                vb.getChildren().add(b);
-                loadPage(actionEvent,"adminPanel-view");
             }
         });
 
@@ -98,9 +92,7 @@ public class HireController {
                 CheckBox cb = new CheckBox();
                 cb.setId("ifHire");
 
-                hb.getChildren().add(un);
-                hb.getChildren().add(userName);
-                hb.getChildren().add(cb);
+                hb.getChildren().addAll(un,userName,cb);
 
                 HBox.setHgrow(un, Priority.ALWAYS);
                 HBox.setHgrow(userName, Priority.ALWAYS);
@@ -127,10 +119,7 @@ public class HireController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
     }
 
 

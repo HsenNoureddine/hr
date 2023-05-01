@@ -1,6 +1,7 @@
 package com.example.hr.controller;
 
 import com.example.hr.DBConnection;
+import com.example.hr.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -49,6 +52,12 @@ public class LoginController {
         loadPage("adminPanel-view",event);
     }
 
+    @FXML
+    public void initialize()
+    {
+
+    }
+
     void loadPage(String page,ActionEvent event) throws IOException {
         if(page.compareTo("adminPanel-view") == 0)
         {
@@ -67,6 +76,9 @@ public class LoginController {
                 {
                     if(resultSet.getInt("status") != 0)
                     {
+                        Session session = Session.getSession();
+                        session.setUserID(resultSet.getInt("userID"));
+
                         URL url = new File("src/main/resources/com/example/hr/view/"+page+".fxml").toURI().toURL();
                         Parent root = FXMLLoader.load(url);
                         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

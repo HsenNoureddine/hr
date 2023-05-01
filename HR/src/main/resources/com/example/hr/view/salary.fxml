@@ -5,12 +5,13 @@
 <?import javafx.scene.text.Text?>
 
 
-<HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="vb" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hr.controller.SalaryController" stylesheets="@style/salary.css">
     <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Salary">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Salaries">
             <font>
                 <Font size="22.0" />
             </font>
         </Text>
     </children>
-</HBox>
+</VBox>
