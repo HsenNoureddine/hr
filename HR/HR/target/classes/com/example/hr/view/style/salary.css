@@ -1,0 +1,12 @@
+.SalaryBox{
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-padding: 2,0,0,2;
+}
+VBox{
+    -fx-spacing: 10;
+}
+.container{
+    -fx-spacing: 5;
+    -fx-min-height: 300;
+}
